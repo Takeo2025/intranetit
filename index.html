@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT部ポータル | SharePoint</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", "Yu Gothic UI", sans-serif;
+    background-color: #f4f6f9;
+    color: #323130;
+}
+
+/* 上部バー */
+.topbar {
+    height: 72px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e1dfdd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 32px;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.ms-logo {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #0078d4, #00a4ef);
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.site-label {
+    font-size: 13px;
+    color: #605e5c;
+    margin-bottom: 2px;
+}
+
+.site-title h1 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.search-box {
+    width: 320px;
+    height: 40px;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    padding: 0 14px;
+    font-size: 14px;
+    background-color: #faf9f8;
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: #0078d4;
+    background-color: #ffffff;
+}
+
+/* ナビ */
+.nav {
+    background-color: #ffffff;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: 52px;
+    border-bottom: 1px solid #edebe9;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #323130;
+    font-size: 14px;
+    padding: 14px 4px;
+    border-bottom: 3px solid transparent;
+}
+
+.nav-link:hover {
+    color: #0078d4;
+}
+
+.nav-link.active {
+    color: #0078d4;
+    border-bottom: 3px solid #0078d4;
+    font-weight: 600;
+}
+
+/* 全体 */
+.container {
+    max-width: 1280px;
+    margin: 32px auto 60px;
+    padding: 0 24px;
+}
+
+.hero {
+    background: linear-gradient(135deg, #eaf4ff, #ffffff);
+    border: 1px solid #e1dfdd;
+    border-radius: 16px;
+    padding: 36px;
+    margin-bottom: 32px;
+}
+
+.hero-tag {
+    color: #0078d4;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.hero h2 {
+    font-size: 30px;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #605e5c;
+}
+
+/* セクション */
+.section {
+    margin-bottom: 28px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.section-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.section-link {
+    text-decoration: none;
+    color: #0078d4;
+    font-size: 14px;
+}
+
+.section-link:hover {
+    text-decoration: underline;
+}
+
+/* クイックリンク */
+.quick-links-section {
+    margin-bottom: 36px;
+}
+
+.quick-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 18px;
+}
+
+.quick-card {
+    background-color: #ffffff;
+    border: 1px solid #edebe9;
+    border-radius: 16px;
+    min-height: 130px;
+    text-decoration: none;
+    color: #323130;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.quick-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.quick-icon {
+    font-size: 32px;
+}
+
+.quick-card p {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* 2カラム */
+.two-column {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+.left-column,
+.right-column {
+    min-width: 0;
+}
+
+/* ニュース */
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.news-item {
+    background-color: #ffffff;
+    border: 1px solid #edebe9;
+    border-radius: 16px;
+    padding: 18px;
+    display: flex;
+    gap: 18px;
+    text-decoration: none;
+    color: #323130;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.news-item:hover {
+    border-color: #c7e0f4;
+}
+
+.news-date {
+    min-width: 90px;
+    font-size: 13px;
+    color: #605e5c;
+    font-weight: 600;
+}
+
+.news-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.news-text {
+    font-size: 14px;
+    color: #605e5c;
+    line-height: 1.7;
+}
+
+/* ドキュメント */
+.doc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.doc-card {
+    background-color: #ffffff;
+    border: 1px solid #edebe9;
+    border-radius: 16px;
+    padding: 18px;
+    text-decoration: none;
+    color: #323130;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.doc-card:hover {
+    border-color: #c7e0f4;
+}
+
+.doc-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.doc-meta {
+    font-size: 13px;
+    color: #605e5c;
+}
+
+/* ステータス */
+.status-card,
+.contact-card,
+.faq-list {
+    background-color: #ffffff;
+    border: 1px solid #edebe9;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.status-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.status-row span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-row.normal .status-dot {
+    background-color: #107c10;
+}
+
+.status-row.warning .status-dot {
+    background-color: #ffb900;
+}
+
+/* FAQ */
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.faq-item {
+    text-decoration: none;
+    color: #323130;
+    font-size: 14px;
+    line-height: 1.6;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f3f2f1;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.faq-item:hover {
+    color: #0078d4;
+}
+
+/* 問い合わせ */
+.contact-card p {
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* レスポンシブ */
+@media (max-width: 900px) {
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        gap: 14px;
+        padding: 20px;
+    }
+
+    .topbar-right {
+        width: 100%;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .nav {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 0 20px;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .hero {
+        padding: 24px;
+    }
+
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+
+    .news-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="topbar-left">
+            <div class="ms-logo">S</div>
+            <div class="site-title">
+                <p class="site-label">SharePoint</p>
+                <h1>IT部ポータル</h1>
+            </div>
+        </div>
+
+        <div class="topbar-right">
+            <input type="text" placeholder="IT情報を検索" class="search-box">
+        </div>
+    </header>
+
+    <nav class="nav">
+        <a href="#" class="nav-link">全社ホーム</a>
+        <a href="#" class="nav-link active">IT部サイト</a>
+        <a href="#" class="nav-link">マニュアル</a>
+        <a href="#" class="nav-link">FAQ</a>
+        <a href="#" class="nav-link">お問い合わせ</a>
+    </nav>
+
+    <main class="container">
+
+        <section class="hero">
+            <div class="hero-text">
+                <p class="hero-tag">IT Support Portal</p>
+                <h2>ITサポート情報をまとめて確認</h2>
+                <p>
+                    PC・アカウント・会議室機器・ソフトウェア申請・障害情報など、
+                    社内ITに関する情報をこのページから確認できます。
+                </p>
+            </div>
+        </section>
+
+
+        <section class="two-column">
+            <div class="left-column">
+
+                <section class="section">
+                    <div class="section-header">
+                        <h2>ITからのお知らせ</h2>
+                        <a href="#" class="section-link">一覧へ</a>
+                    </div>
+
+                    <div class="news-list">
+                        <a href="#" class="news-item">
+                            <div class="news-date">2026/04/09</div>
+                            <div class="news-content">
+                                <p class="news-title">Windowsアップデートのお知らせ</p>
+                                <p class="news-text">今週金曜 19:00 以降、順次セキュリティ更新が適用されます。</p>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <div class="section-header">
+                        <h2>マニュアル</h2>
+                        <a href="#" class="section-link">もっと見る</a>
+                    </div>
+
+                    <div class="doc-grid">
+                        <a href="#" class="doc-card">
+                            <p class="doc-title">Outlook設定マニュアル</p>
+                            <p class="doc-meta">メール / カレンダー / 署名</p>
+                        </a>
+
+                        <a href="#" class="doc-card">
+                            <p class="doc-title">Teams会議トラブル対応</p>
+                            <p class="doc-meta">音声 / カメラ / 画面共有</p>
+                        </a>
+
+                        <a href="#" class="doc-card">
+                            <p class="doc-title">社内Wi-Fi接続手順</p>
+                            <p class="doc-meta">Windows / iPhone</p>
+                        </a>
+
+                        <a href="#" class="doc-card">
+                            <p class="doc-title">PC交換時のチェックリスト</p>
+                            <p class="doc-meta">端末入替 / データ移行</p>
+                        </a>
+                    </div>
+                </section>
+
+            </div>
+
+                <section class="section">
+                    <div class="section-header">
+                        <h2>よくある質問</h2>
+                    </div>
+
+                    <div class="faq-list">
+                        <a href="#" class="faq-item">PCのパスワードを変更した後にOfficeへ再サインインが必要</a>
+                        <a href="#" class="faq-item">Teams会議でマイクが認識されない</a>
+                        <a href="#" class="faq-item">iPhoneのメール設定方法</a>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <div class="section-header">
+                        <h2>お問い合わせ</h2>
+                    </div>
+
+                    <div class="contact-card">
+                        <p><strong>IT Support</strong></p>
+                        <p>メール: dmtjitsupport@dornier.com</p>
+                    </div>
+                </section>
+
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
